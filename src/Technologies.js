@@ -4,5 +4,5 @@ const Technologies = () => {
     </ol>
     );
 }
-
+ 
 export default Technologies;

@@ -1,0 +1,9 @@
+
+.content{
+    grid-area: c;
+    /*color: aquamarine;*/
+    background-color:rgb(115, 241, 199);
+}
+.content img{
+    width: 450px;
+}
