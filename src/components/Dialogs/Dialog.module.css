@@ -1,11 +1,22 @@
 
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    color:slategrey;
+}
+.dialog_item{
+    padding:10px;
+}
+.dialog_item .dialog{
 
-.header {
-    grid-area: h;
-    background-color: rgb(122, 163, 10);
 }
 
-.header img {
-    width: 50px;
-    text-align: center;
- }
+.active{
+    color:red;
+}
+.messages{
+    padding: 10px;
+}
+.input{
+    padding: 10px;
+}

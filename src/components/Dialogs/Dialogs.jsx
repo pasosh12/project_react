@@ -1,52 +1,31 @@
-import React from 'react';
-import classes from './Dialog.module.css';
-import {NavLink} from "react-router-dom";
+import React from "react";
+import classes from "./Dialog.module.css";
+import Dialog_item from "./DialogItem/DialogItem";
+import Message from "./Message/Message";
 
-const Dialog_item= (props) => {
-    let path="/dialogs/" + props.id;
-    return(
-        <div className={classes.dialog + ' ' + classes.active}>
-            <NavLink to={path}> {props.name} </NavLink>
-        </div>
-    );
-}
-const Message=(props)=>{
-    return(
-        <div className={classes.message}>{props.message}</div>
-    );
-}
+const Dialogs = (props) => {
 
+    let dialogsElement = props.state.dialogs.map( d => <Dialog_item id={d.id} name={d.name} /> );
+    let messageElement = props.state.messages.map( m => <Message id={m.id} message={m.message} /> );
+    let newMessage=props.state.newMessageText;
 
-const Dialogs = (props)=> {
+    let messageChange = (e) => {
+        let text = e.target.value;
+        props.updateNewMessage(text);
+    }
+    let addMessage = () => props.addMessage()
 
-
-    let dialogs = [
-            {id:1, name:"Дима"},
-            {id:2, name:"Саша"},
-            {id:3, name:"Петя"},
-            {id:4, name:"Игорь"},
-            {id:5, name:"Вячеслав"}
-            ]
-
-    let messages = [
-        {id:1, message:'Hi'},
-        {id:2, message:'Hello'},
-        {id:3, message:'React Cool!'}
-        ]
-
-    let dialogsElement = dialogs.map( d => <Dialog_item id={d.id} name={d.name} /> );
-
-
-    let messageElement = messages.map( m => <Message id={m.id} message={m.message} /> )
 
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialog_item}>
-                { dialogsElement }
+                {dialogsElement}
             </div>
 
             <div className={classes.messages}>
-                { messageElement }
+                {messageElement}
+                <textarea onChange={messageChange} placeholder={"Enter your message"} value={newMessage}/>
+                <button onClick={addMessage} value="отправить">Send</button>
             </div>
 
         </div>

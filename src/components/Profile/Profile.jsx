@@ -1,19 +1,18 @@
-   import classes from "./Profile.module.css";
-   import MyPosts from "./MyPosts/MyPosts";
+import classes from "./Profile.module.css";
+import MyPostsContainer from "./MyPosts/MyPostContainer"
+import ProfileInfo from "./ProfileInfo/ProfileInfo"
+import React from "react";
 
-const Profile = () => {
+
+const Profile = (props) => {
+
     return (
-        <div className={classes.content}>
-            <div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Polish_Wikinews_header_image.png"></img>
-            </div>
-
-            <div>ava+description</div>
-           
-           <MyPosts />
-           
+        <div>
+            <ProfileInfo/>
+            <MyPostsContainer store={props.store}/>
         </div>
     );
+
 }
 
 export default Profile;

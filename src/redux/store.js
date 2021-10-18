@@ -40,15 +40,12 @@ let store = {
 
     dispatch(action){
 
-        this._state.profilePage = profileReducer(this.getState().profilePage, action);
-debugger;
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this.getState().dialogsPage, action);
         this._callSubscriber(this._state);
     },
 
 }
 
-
-let temp;
-window.temp=store;
+window.store=store;
 export default store;

@@ -3,12 +3,14 @@
     
     grid-area: n;
     background-color: rgb(178, 196, 79);
+    padding: 15px;
 }
 
-.item{
-    color:rgb(87, 84, 84);
+.item a{
+    color:white;
+    text-decoration: none;
 }
 
-.item.active{
-    color:gold;
+.item a.activeLink{
+    color:black;
 }

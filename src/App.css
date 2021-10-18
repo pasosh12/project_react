@@ -1,18 +1,29 @@
 ol li {
-list-style-type: georgian;
+    list-style-type: georgian;
 }
 
 .app-wrapper {
     display: grid;
 
-    grid-template-areas: "h h"
-    "n c";
+    grid-template-areas: "h h" "n c";
 
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
 }
 
+.app-wrapper-content {
+
+    grid-area: c;
+    /*color: aquamarine;*/
+    background-color: rgb(115, 241, 199);
+}
+
+.app-wrapper-content img {
+    width: 450px;
+}
+
+/*
 .content img{
     width: 450px;
 }
@@ -20,4 +31,4 @@ list-style-type: georgian;
 .header img {
     width: 50px;
     text-align: center;
- }
+ }*/
