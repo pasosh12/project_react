@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Users.module.css";
 import defaultPhoto from "../../assets/images/head.png";
+import loaderComponent from "../common/LoaderComponent";
 
 
 
@@ -9,7 +10,8 @@ let User=(props)=>{
         <div>
 
         <div>
-            { props.pages.map(p =>  {
+            {
+                props.pages.map(p =>  {
                 return  <a className={props.currentPage===p ? classes.pageSelected : ""}
 
                            onClick={ (e)=>{props.pageChanged(p)} }> {p} </a>
@@ -20,8 +22,7 @@ let User=(props)=>{
         {
             props.users.map(u => <div key={u.id}>
                 <div className={classes.item}>
-
-                    <img src={(u.photos.large) ? u.photos.large : defaultPhoto}/>
+                    <img src={(u.photos.large) ? u.photos.large : defaultPhoto}></img>
                     <div>
                         {u.followed
                             ? <button onClick={() => {

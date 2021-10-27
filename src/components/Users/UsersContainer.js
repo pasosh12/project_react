@@ -1,9 +1,17 @@
 import React from 'react';
-import {followAC, setCurrentPageAC, setUsersTotalCountAC, setUsersAC, unfollowAC} from "../../redux/userReducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setUsersTotalCountAC,
+    setUsersAC,
+    unfollowAC,
+    setFetchingStatusAC
+} from '../../redux/userReducer';
 
+import LoaderComponent from '../common/LoaderComponent';
 import {connect} from 'react-redux';
-import * as axios from "axios";
-import User from "./User";
+import * as axios from 'axios';
+import User from './User';
 
 
 /* const MyPostsContainer = () => {
@@ -66,10 +74,12 @@ class UsersApiContainer extends React.Component {
              }
 
          ])*/
+        this.props.setFetchingStatus(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersOnPage}`).then(response => {
 
-            this.props.setUsers(response.data.items)
-            this.props.setUsersTotalCount(response.data.totalCount)
+            this.props.setUsers(response.data.items);
+            this.props.setFetchingStatus(false);
+            this.props.setUsersTotalCount(response.data.totalCount);
         })
     }
 
@@ -102,10 +112,13 @@ class UsersApiContainer extends React.Component {
                   ]*/
     pageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
+        this.props.setFetchingStatus(true);
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersOnPage}`)
             .then(response => {
 
                 this.props.setUsers(response.data.items);
+                this.props.setFetchingStatus(false);
             });
         /*if(response.data.items.photos.small && response.data.items.status)this.props.setUsers(response.data.items)*/
 
@@ -120,18 +133,19 @@ class UsersApiContainer extends React.Component {
             pages.push(i);
         }
 
-        console.log(this.props.users);
-        console.log(this.props.currentPage);
-
 
         return (
-            <User pages={pages}
-                  users={this.props.users}
-                  currentPage={this.props.currentPage}
-                  pageChanged={this.pageChanged}
-                  follow={this.props.follow}
-                  unfollow={this.props.unfollow}
-            />
+            <>
+                { this.props.isFetching ? <LoaderComponent/> : null}
+                <User pages={pages}
+                      users={this.props.users}
+                      currentPage={this.props.currentPage}
+                      pageChanged={this.pageChanged}
+                      follow={this.props.follow}
+                      unfollow={this.props.unfollow}
+                      isFetching={this.props.isFetching}
+                />
+            </>
         );
     }
 }
@@ -140,11 +154,11 @@ class UsersApiContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         users: state.usersPage.userData,
-
         usersOnPage: state.usersPage.usersOnPage,
         usersTotalCount: state.usersPage.usersTotalCount,
         pagesCount: state.usersPage.pagesCount,
         currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -164,10 +178,15 @@ let mapDispatchToProps = (dispatch) => {
         setUsersTotalCount:
             (usersTotalCount) => {
                 dispatch(setUsersTotalCountAC(usersTotalCount))
+            },
+        setFetchingStatus:
+            (fetchStatus) => {
+                dispatch(setFetchingStatusAC(fetchStatus))
             }
     }
-
 }
+
+
 
 const SuperUsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer);
 export default SuperUsersContainer;
