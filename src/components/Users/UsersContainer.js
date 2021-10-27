@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-    followAC,
-    setCurrentPageAC,
-    setUsersTotalCountAC,
-    setUsersAC,
-    unfollowAC,
-    setFetchingStatusAC
+    follow,
+    setCurrentPage,
+    setUsersTotalCount,
+    setUsers,
+    unfollow,
+    setFetchingStatus
 } from '../../redux/userReducer';
 
 import LoaderComponent from '../common/LoaderComponent';
@@ -83,33 +83,6 @@ class UsersApiContainer extends React.Component {
         })
     }
 
-    /*  [
-                      {
-                          id: 1,
-                          followed: true,
-                          status: 'React developer',
-                          fullName: 'Andrew K.',
-                          location: {city: 'Brest', country: 'Belarus'},
-                          imageUrl: "https://proprikol.ru/wp-content/uploads/2020/10/kartinki-krasivyh-muzhchin-9.jpg"
-                      },
-                      {
-                          id: 2,
-                          followed: false,
-                          status: 'UX-UI designer',
-                          fullName: 'Victor S.',
-                          location: {city: 'Kiev', country: 'Ukraine'},
-                          imageUrl: "https://i04.fotocdn.net/s127/bfdacb44a400fbd1/user_xl/2876986631.jpg"
-                      },
-                      {
-                          id: 3,
-                          followed: false,
-                          status: 'developing cool',
-                          fullName: 'Greg H.',
-                          location: {city: 'London', country: 'UK'},
-                          imageUrl: "https://i01.fotocdn.net/s124/3af3fb1b324c30bc/gallery_l/2824821900.jpg"
-                      }
-
-                  ]*/
     pageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.setFetchingStatus(true);
@@ -161,7 +134,7 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
     }
 }
-let mapDispatchToProps = (dispatch) => {
+/*let mapDispatchToProps = (dispatch) => {
     return {
         follow: (userId) => dispatch(followAC(userId)),
         unfollow: (userId) => {
@@ -184,9 +157,11 @@ let mapDispatchToProps = (dispatch) => {
                 dispatch(setFetchingStatusAC(fetchStatus))
             }
     }
-}
+}*/
 
 
 
-const SuperUsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer);
+const SuperUsersContainer = connect(mapStateToProps, {
+    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setFetchingStatus
+})(UsersApiContainer);
 export default SuperUsersContainer;
