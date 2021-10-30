@@ -5,11 +5,12 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_USERS_COUNT = 'SET-USERS-COUNT';
 const SET_FETCH_STATUS = 'SET_FETCH_STATUS';
 
+
 let initialState = {
     userData: [],
     usersOnPage: 100,
     usersTotalCount: 1,
-    pagesCount: 0,
+    pagesCount: 1,
     currentPage: 1,
     isFetching: true,
 }
