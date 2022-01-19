@@ -3,36 +3,39 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import React from "react";
 import * as axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfileAC} from '../../redux/profileReducer'
+import {setUserProfile} from '../../redux/profileReducer'
 import Profile from "./ProfileInfo/Profile";
+import {withRouter} from "react-router-dom";
 
 
-let mapStateToProps = (state) => ({ profile: state.profilePage.userInfo})
+let mapStateToProps = (state) => ({ profile: state.profilePage.userInfo,
+/*    aboutMe:state.profilePage.userInfo.aboutMe,
+    lookingForAJob: state.profilePage.userInfo.lookingForAJob,*/
+})
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setUserProfile: (userInfo) => {
-            dispatch(setUserProfileAC(userInfo))
-        }
-    }
-}
 
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/22`)
+        let userId=this.props.match.params.userId
+        if (!userId) userId=22;
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+userId)
             .then(response => {
+
                 this.props.setUserProfile(response.data);
             });
     }
 
     render() {
+        console.log(this.props.profile)
         return (
-            <Profile profile={this.props.profile}/>
+
+            <Profile profile={this.props.profile} /> /*{...this.props}*/
         )
     }
 
 }
-
-const SuperProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+let ProfileContainerWithRouter=withRouter(ProfileContainer);
+const SuperProfileContainer = connect(mapStateToProps, {setUserProfile})(ProfileContainerWithRouter);
 export default SuperProfileContainer;

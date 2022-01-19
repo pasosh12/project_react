@@ -9,3 +9,11 @@
     width: 50px;
     text-align: center;
  }
+
+.authorization{
+    float:right;
+    margin-right:2%;
+}
+.authorization a{
+    color:white;
+}

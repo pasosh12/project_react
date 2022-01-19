@@ -10,13 +10,13 @@ let initialState = {
     newPostText: '',
     userInfo: null,
 
+
 }
 
 const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST: {
-
             let newPost = {
                 id: 5,
                 message: state.newPostText,
@@ -52,8 +52,9 @@ export const updateNewPostActionCreator = (postText) =>
         type: NEW_POST_CHANGE,
         postText: postText
     })                   //instead return{ type:ADD_POST }, ()-object
-export const setUserProfileAC = (userInfo) => ({
+export const setUserProfile = (userInfo) => ({
   type: SET_USER_PROFILE, userInfo
 })
+
 
 export default profileReducer;

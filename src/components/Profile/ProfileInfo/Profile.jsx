@@ -5,8 +5,7 @@ import React from "react";
 let Profile=(props)=>{
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
-            debugger;
+            <ProfileInfo profile={props.profile} />
             <MyPostsContainer store={props.store}/>
         </div>
     );

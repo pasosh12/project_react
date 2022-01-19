@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./Dialog.module.css";
-import Dialog_item from "./DialogItem/DialogItem";
+import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
 const Dialogs = (props) => {
 
-    let dialogsElement = props.state.dialogs.map( d => <Dialog_item id={d.id} name={d.name} /> );
+    let dialogsElement = props.state.dialogs.map( d => <DialogItem id={d.id} name={d.name} /> );
     let messageElement = props.state.messages.map( m => <Message id={m.id} message={m.message} /> );
     let newMessage=props.state.newMessageText;
 

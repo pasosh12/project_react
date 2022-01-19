@@ -4,7 +4,7 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_USERS_COUNT = 'SET-USERS-COUNT';
 const SET_FETCH_STATUS = 'SET_FETCH_STATUS';
-
+const SET_FOLLOW_STATUS = 'SET_FOLLOW_STATUS';
 
 let initialState = {
     userData: [],
@@ -13,6 +13,7 @@ let initialState = {
     pagesCount: 1,
     currentPage: 1,
     isFetching: true,
+    followProcess: false,
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -51,6 +52,11 @@ const usersReducer = (state = initialState, action) => {
             return {...state, usersTotalCount: action.totalCount}
         case SET_FETCH_STATUS:
             return {...state, isFetching: action.fetchStatus}
+        case SET_FOLLOW_STATUS:
+            return {...state,
+                followProcess: action.followProcess
+                //    ? [...state.followProcess, action.userid] : followProcess.filter(id=>userId !=id )
+            }
         default:
             return state;
     }
@@ -64,6 +70,7 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (pageNumber) => ({type: SET_CURRENT_PAGE, currentPage: pageNumber})
 export const setUsersTotalCount = (count) => ({type: SET_USERS_COUNT, totalCount: count})
 export const setFetchingStatus = (fetchStatus) => ({type: SET_FETCH_STATUS, fetchStatus})
+export const toggleFollowing = (followStatus) => ({type: SET_FOLLOW_STATUS, followStatus})
 
 
 export default usersReducer;

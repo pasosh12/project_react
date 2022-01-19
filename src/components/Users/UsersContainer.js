@@ -5,13 +5,14 @@ import {
     setUsersTotalCount,
     setUsers,
     unfollow,
-    setFetchingStatus
+    setFetchingStatus,
+    toggleFollowing
 } from '../../redux/userReducer';
 
 import LoaderComponent from '../common/LoaderComponent';
 import {connect} from 'react-redux';
-import * as axios from 'axios';
 import User from './User';
+import {usersAPI} from "../../API/api";
 
 
 /* const MyPostsContainer = () => {
@@ -50,46 +51,22 @@ class UsersApiContainer extends React.Component {
                      large: "https://proprikol.ru/wp-content/uploads/2020/10/kartinki-krasivyh-muzhchin-9.jpg"
                  }
              },
-             {
-                 id: 2,
-                 followed: false,
-                 status: 'UX-UI designer',
-                 name: 'Victor S.',
-                 location: {city: 'Kiev', country: 'Ukraine'},
-                 photos: {
-                     small: null,
-                     large: "https://i04.fotocdn.net/s127/bfdacb44a400fbd1/user_xl/2876986631.jpg"
-                 }
-             },
-             {
-                 id: 3,
-                 followed: false,
-                 status: 'developing cool',
-                 name: 'Greg H.',
-                 location: {city: 'London', country: 'UK'},
-                 photos: {
-                     small: null,
-                     large: "https://i01.fotocdn.net/s124/3af3fb1b324c30bc/gallery_l/2824821900.jpg"
-                 }
-             }
-
+             {}
          ])*/
         this.props.setFetchingStatus(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersOnPage}`).then(response => {
+        usersAPI.getUsers(this.props.currentPage,this.props.usersOnPage).then(response => {
 
-            this.props.setUsers(response.data.items);
-            this.props.setFetchingStatus(false);
-            this.props.setUsersTotalCount(response.data.totalCount);
-        })
+                this.props.setUsers(response.data.items);
+                this.props.setFetchingStatus(false);
+                this.props.setUsersTotalCount(response.data.totalCount);
+            })
     }
 
     pageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.setFetchingStatus(true);
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersOnPage}`)
-            .then(response => {
-
+       usersAPI.getUsers(pageNumber,this.props.usersOnPage).then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setFetchingStatus(false);
             });
@@ -106,17 +83,18 @@ class UsersApiContainer extends React.Component {
             pages.push(i);
         }
 
-
         return (
             <>
-                { this.props.isFetching ? <LoaderComponent/> : null}
-                <User pages={pages}
-                      users={this.props.users}
-                      currentPage={this.props.currentPage}
-                      pageChanged={this.pageChanged}
-                      follow={this.props.follow}
-                      unfollow={this.props.unfollow}
-                      isFetching={this.props.isFetching}
+                {this.props.isFetching ? <LoaderComponent/> : null}
+                <User
+                    pages={pages}
+                    users={this.props.users}
+                    currentPage={this.props.currentPage}
+                    pageChanged={this.pageChanged}
+                    follow={this.props.follow}
+                    unfollow={this.props.unfollow}
+                    isFetching={this.props.isFetching}
+                    followProcess={this.props.followProcess}
                 />
             </>
         );
@@ -132,6 +110,7 @@ let mapStateToProps = (state) => {
         pagesCount: state.usersPage.pagesCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followProcess: state.usersPage.followProcess,
     }
 }
 /*let mapDispatchToProps = (dispatch) => {
@@ -160,8 +139,7 @@ let mapStateToProps = (state) => {
 }*/
 
 
-
 const SuperUsersContainer = connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setFetchingStatus
+    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setFetchingStatus, toggleFollowing,
 })(UsersApiContainer);
 export default SuperUsersContainer;

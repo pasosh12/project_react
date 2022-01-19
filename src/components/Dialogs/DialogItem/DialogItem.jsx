@@ -3,7 +3,7 @@ import classes from '../Dialog.module.css';
 import {NavLink} from "react-router-dom";
 
 
-const Dialog_Item = (props) => {
+const DialogItem = (props) => {
     let path="/dialogs/" + props.id;
     return(
         <div className={classes.dialog + ' ' + classes.active}>
@@ -13,4 +13,4 @@ const Dialog_Item = (props) => {
     );
 
 }
-export default Dialog_Item;
+export default DialogItem;
