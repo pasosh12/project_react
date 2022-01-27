@@ -31,29 +31,29 @@ let User = (props) => {
                         </NavLink>
                         <div>
                             {u.followed
-                                ? <button /*disabled={  props.followProceess ? true:false}*/ onClick={() => {
+                                ?
+                                <button disabled={  props.followingInProgress ? true:false} onClick={() => {
 
-                                    //props.followProcess(true)//, u.id);
+                                    props.toggleFollowingProcess(true, u.id);
                                     followAPI.unfollowUser(u.id).then(response => {
                                         console.log(props);
                                         if (response.data.resultCode == 0) {
-                                            //props.followProcess(false)//, u.id);
+                                            props.toggleFollowingProcess(false, u.id);
                                             props.unfollow(u.id);
-
                                         }
                                     })
 
                                 }
                                 }>
                                     Unfollow</button>
-                                : <button /*disabled={  props.followProceess ? true:false}*/  onClick={() => {
+                                : <button disabled={  props.followingInProgress ? true:false}  onClick={() => {
 
                                     followAPI.followUser(u.id).then(response => {
-                                        //props.followProcess(true)//, u.id);
+                                        props.toggleFollowing(true, u.id);
 
                                         if (response.data.resultCode == 0) {
+                                            props.toggleFollowingProcess(false, u.id);
                                             props.follow(u.id);
-                                        //props.followProcess(false)//, u.id);
                                         }
                                     })
 

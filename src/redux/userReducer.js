@@ -13,7 +13,7 @@ let initialState = {
     pagesCount: 1,
     currentPage: 1,
     isFetching: true,
-    followProcess: false,
+    followingInProgress: false,
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -54,8 +54,8 @@ const usersReducer = (state = initialState, action) => {
             return {...state, isFetching: action.fetchStatus}
         case SET_FOLLOW_STATUS:
             return {...state,
-                followProcess: action.followProcess
-                //    ? [...state.followProcess, action.userid] : followProcess.filter(id=>userId !=id )
+                followingInProgress: action.followStatus
+                   // ? [...state.followingInProgress, action.userId] : state.followingInProgress.filter(id=> id != action.userId)
             }
         default:
             return state;
@@ -70,7 +70,7 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (pageNumber) => ({type: SET_CURRENT_PAGE, currentPage: pageNumber})
 export const setUsersTotalCount = (count) => ({type: SET_USERS_COUNT, totalCount: count})
 export const setFetchingStatus = (fetchStatus) => ({type: SET_FETCH_STATUS, fetchStatus})
-export const toggleFollowing = (followStatus) => ({type: SET_FOLLOW_STATUS, followStatus})
+export const toggleFollowingProcess = (followStatus, userId) => ({type: SET_FOLLOW_STATUS, followStatus, userId})
 
 
 export default usersReducer;

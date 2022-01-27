@@ -6,7 +6,7 @@ import {
     setUsers,
     unfollow,
     setFetchingStatus,
-    toggleFollowing
+    toggleFollowingProcess
 } from '../../redux/userReducer';
 
 import LoaderComponent from '../common/LoaderComponent';
@@ -94,7 +94,8 @@ class UsersApiContainer extends React.Component {
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                     isFetching={this.props.isFetching}
-                    followProcess={this.props.followProcess}
+                    followingInProgress={this.props.followingInProgress}
+                    toggleFollowingProcess={ this.props.toggleFollowingProcess}
                 />
             </>
         );
@@ -110,7 +111,8 @@ let mapStateToProps = (state) => {
         pagesCount: state.usersPage.pagesCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followProcess: state.usersPage.followProcess,
+        followingInProgress: state.usersPage.followingInProgress,
+        toggleFollowingProcess: state.usersPage.toggleFollowingProcess,
     }
 }
 /*let mapDispatchToProps = (dispatch) => {
@@ -140,6 +142,6 @@ let mapStateToProps = (state) => {
 
 
 const SuperUsersContainer = connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setFetchingStatus, toggleFollowing,
+    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setFetchingStatus, toggleFollowingProcess,
 })(UsersApiContainer);
 export default SuperUsersContainer;
