@@ -1,3 +1,5 @@
+import {followAPI, usersAPI} from "../API/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -74,4 +76,36 @@ export const setUsersTotalCount = (count) => ({type: SET_USERS_COUNT, totalCount
 export const setFetchingStatus = (fetchStatus) => ({type: SET_FETCH_STATUS, fetchStatus})
 export const toggleFollowingProcess = (isFetching, userId) => ({type: SET_FOLLOW_STATUS, isFetching, userId})
 
+export const getUsersThunk = (currentPage, usersOnPage) => {
+    return (dispatch) => {
+        dispatch(setFetchingStatus(true));
+        usersAPI.getUsers(currentPage, usersOnPage).then(response => {
+            dispatch(setUsers(response.data.items));
+            dispatch(setFetchingStatus(false));
+            dispatch(setUsersTotalCount(response.data.totalCount));
+        })
+    }
+}
+export const followUser = (userId) => {
+    return dispatch => {
+        followAPI.followUser(userId).then(response => {
+            dispatch(toggleFollowingProcess(true, userId));
+            if (response.data.resultCode == 0) {
+                dispatch(toggleFollowingProcess(false, userId));
+                dispatch(follow(userId));
+            }
+        })
+    }
+}
+export const unfollowUser = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProcess(true, userId));
+        followAPI.unfollowUser(userId).then(response => {
+            if (response.data.resultCode == 0) {
+                dispatch(toggleFollowingProcess(false, userId));
+                dispatch(unfollow(userId));
+            }
+        })
+    }
+}
 export default usersReducer;

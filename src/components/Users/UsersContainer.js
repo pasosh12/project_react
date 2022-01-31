@@ -6,7 +6,7 @@ import {
     setUsers,
     unfollow,
     setFetchingStatus,
-    toggleFollowingProcess
+    toggleFollowingProcess, getUsersThunk
 } from '../../redux/userReducer';
 
 import LoaderComponent from '../common/LoaderComponent';
@@ -53,28 +53,27 @@ class UsersApiContainer extends React.Component {
              },
              {}
          ])*/
-        this.props.setFetchingStatus(true);
-        usersAPI.getUsers(this.props.currentPage,this.props.usersOnPage).then(response => {
 
+        this.props.getUsersThunk(this.props.currentPage, this.props.usersOnPage);
+        /*this.props.setFetchingStatus(true);
+        usersAPI.getUsers(this.props.currentPage,this.props.usersOnPage).then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setFetchingStatus(false);
                 this.props.setUsersTotalCount(response.data.totalCount);
             })
+    */
     }
-
     pageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
-        this.props.setFetchingStatus(true);
+        //this.props.setFetchingStatus(true);
 
-       usersAPI.getUsers(pageNumber,this.props.usersOnPage).then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setFetchingStatus(false);
-            });
+        this.props.getUsersThunk(pageNumber,this.props.usersOnPage);
+       // usersAPI.getUsers(pageNumber,this.props.usersOnPage).then(response => {
+       //          this.props.setUsers(response.data.items);
+       //          this.props.setFetchingStatus(false);
+       //      });
         /*if(response.data.items.photos.small && response.data.items.status)this.props.setUsers(response.data.items)*/
-
-
     }
-
 
     render() {
         let pages = [];
@@ -112,7 +111,7 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        toggleFollowingProcess: state.usersPage.toggleFollowingProcess,
+        //toggleFollowingProcess: state.usersPage.toggleFollowingProcess,
     }
 }
 /*let mapDispatchToProps = (dispatch) => {
@@ -142,6 +141,11 @@ let mapStateToProps = (state) => {
 
 
 const SuperUsersContainer = connect(mapStateToProps, {
-    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setFetchingStatus, toggleFollowingProcess,
+    follow, unfollow, //setUsers,
+     setCurrentPage,
+    // setUsersTotalCount,
+    // setFetchingStatus,
+     toggleFollowingProcess,
+    getUsersThunk
 })(UsersApiContainer);
 export default SuperUsersContainer;

@@ -11,15 +11,15 @@ let User = (props) => {
     return (
         <div>
              <div>
+                 {
+                     props.pages.map(p => {
+                           return <a className={props.currentPage === p ? classes.pageSelected : ""}
 
-                {
-                   props.pages.map(p => {
-                       return <a className={props.currentPage === p ? classes.pageSelected : ""}
-
-                                onClick={(e) => {
-                                      props.pageChanged(p)
-                                  }}> {p} </a>
-                    })}
+                                    onClick={(e) => {
+                                          props.pageChanged(p)
+                                      }}> {p} </a>
+                     })
+                }
             </div>
 
             {/*<button onClick={this.addUsers}>Add Users</button>*/}
@@ -33,31 +33,29 @@ let User = (props) => {
                             {u.followed
                                 ?
                                 <button disabled={  props.followingInProgress.some(id=>id===u.id) } onClick={() => {
-
-                                    props.toggleFollowingProcess(true, u.id);
-                                    followAPI.unfollowUser(u.id).then(response => {
-                                        console.log(props);
-                                        if (response.data.resultCode == 0) {
-                                            props.toggleFollowingProcess(false, u.id);
-                                            props.unfollow(u.id);
-                                        }
-                                    })
+                                    // props.toggleFollowingProcess(true, u.id);
+                                    // followAPI.unfollowUser(u.id).then(response => {
+                                    //     console.log(props);
+                                    //     if (response.data.resultCode == 0) {
+                                    //         props.toggleFollowingProcess(false, u.id);
+                                    //         props.unfollow(u.id);
+                                    //     }
+                                    // })
 
                                 }
                                 }>
                                     Unfollow</button>
-                                : <button disabled={  props.followingInProgress.some(id=>id===u.id)}  onClick={() => {
-
-                                    followAPI.followUser(u.id).then(response => {
-                                        props.toggleFollowingProcess(true, u.id);
-
-                                        if (response.data.resultCode == 0) {
-                                            props.toggleFollowingProcess(false, u.id);
-                                            props.follow(u.id);
-                                        }
-                                    })
-
-                                }
+                                : <button disabled={  props.followingInProgress.some(id=>id===u.id)}
+                                          onClick={() => {
+                                                // followAPI.followUser(u.id).then(response => {
+                                                //     props.toggleFollowingProcess(true, u.id);
+                                                //
+                                                //     if (response.data.resultCode == 0) {
+                                                //         props.toggleFollowingProcess(false, u.id);
+                                                //         props.follow(u.id);
+                                                //     }
+                                                // })
+                                          }
                                 }>
                                     Follow</button>
                             }
