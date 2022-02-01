@@ -87,10 +87,10 @@ export const getUsersThunk = (currentPage, usersOnPage) => {
     }
 }
 export const followUser = (userId) => {
-    return dispatch => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProcess(true, userId));
         followAPI.followUser(userId).then(response => {
-            dispatch(toggleFollowingProcess(true, userId));
-            if (response.data.resultCode == 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(toggleFollowingProcess(false, userId));
                 dispatch(follow(userId));
             }
@@ -101,7 +101,7 @@ export const unfollowUser = (userId) => {
     return (dispatch) => {
         dispatch(toggleFollowingProcess(true, userId));
         followAPI.unfollowUser(userId).then(response => {
-            if (response.data.resultCode == 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(toggleFollowingProcess(false, userId));
                 dispatch(unfollow(userId));
             }
