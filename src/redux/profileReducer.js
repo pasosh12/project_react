@@ -1,3 +1,5 @@
+import {authAPI} from "../API/api";
+
 const ADD_POST = 'ADD-POST';
 const NEW_POST_CHANGE = 'NEW-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -8,9 +10,7 @@ let initialState = {
         {id: 2, message: "It's my first Post", likescount: 15}
     ],
     newPostText: '',
-    userInfo: null,
-
-
+    userInfo: '',
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -24,9 +24,9 @@ const profileReducer = (state = initialState, action) => {
             }
             return {                //возвращает объект который был скопирован у state
                 ...state,
-               // newPostText: ...state.profilePage.newPostText,
+                // newPostText: ...state.profilePage.newPostText,
                 postsData: [...state.postsData, newPost],
-                newPostText:''
+                newPostText: ''
             }
         }
 
@@ -37,9 +37,10 @@ const profileReducer = (state = initialState, action) => {
             }
 
         }
-        case SET_USER_PROFILE:{
+        case SET_USER_PROFILE: {
             return {...state, userInfo: action.userInfo}
         }
+
         default:
             return state;
     }
@@ -53,8 +54,13 @@ export const updateNewPostActionCreator = (postText) =>
         postText: postText
     })                   //instead return{ type:ADD_POST }, ()-object
 export const setUserProfile = (userInfo) => ({
-  type: SET_USER_PROFILE, userInfo
+    type: SET_USER_PROFILE, userInfo
 })
+export const getUserProfile = (userId) => (dispatch) => {
+    authAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data));
+    });
+}
 
 
 export default profileReducer;
