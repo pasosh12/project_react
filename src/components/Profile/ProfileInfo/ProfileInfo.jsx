@@ -6,8 +6,7 @@ import headerPhoto from "../../../assets/images/Polish_Wikinews_header_image.png
 import Redirect from "react-router-dom/es/Redirect";
 
 let ProfileInfo = (props) => {
-    if ( !props.profile) { return <LoaderComponent/> }
-    if( !props.isLogged) { return <Redirect to={'/login'}/>}
+    if (!props.profile) { return <LoaderComponent/> }
     let localProfile = props.profile;
     let contacts = props.profile.contacts;
     let job = localProfile.lookingForAJob ? 'Да -> ' : 'Нет';
@@ -20,8 +19,8 @@ let ProfileInfo = (props) => {
             <div className={classes.description}>
                 <div><b>{localProfile.fullName}</b></div>
                 <div>
-                    {/*<img style={{height: '300px', width: '300px'}} src={localProfile.photos.large ?*/}
-                    {/*    localProfile.photos.large : defaultPhoto}/>*/}
+                    <img style={{height: '300px', width: '300px'}} src={localProfile.photos.large ?
+                        localProfile.photos.large : defaultPhoto}/>
                 </div>
                 <div><p><i>Статус:</i> {aboutMe}</p></div>
                 <div><i>Ищу работу :</i> {job}

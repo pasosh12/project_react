@@ -43,7 +43,7 @@ export const setLoggingProfile = (id, login, email) => {
 export const profileAuthorization = () => (dispatch) => {
     authAPI.login().then(response => {
         //debugger;
-        if (response.data.data.resultCode !== 0) {
+        if (response.data.resultCode === 0) {
             let data = response.data.data;
             dispatch(setLoggingProfile(data.id, data.login, data.email));
         }
