@@ -9,7 +9,7 @@ let Header=(props)=> {
         <img src={vkLogo} />
         <div className={c.authorization}>
 
-            {props.isLogged? props.name : <NavLink to='/login'>Log in</NavLink>}
+            {props.isLogged ? props.name : <NavLink to='/login'>Log in</NavLink>}
 
         </div>
     </header>

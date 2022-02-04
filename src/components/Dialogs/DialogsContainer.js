@@ -25,7 +25,8 @@ import StoreContext from "../../StoreContext";
 let mapStateToProps = (state) => {
     console.log(state);
     return {
-        state: state.dialogsPage
+        state: state.dialogsPage,
+        isLogged:state.auth.isLogged,
     }
 }
 

@@ -25,7 +25,7 @@ let User = (props) => {
                         <NavLink to={'/profile/' + u.id}>
                             <img src={(u.photos.large) ? u.photos.large : defaultPhoto}></img>
                         </NavLink>
-                        <div>
+                        <div key={u.id}>
                             {u.followed
                                 ?
                                 <button disabled={props.followingInProgress.some(id => id === u.id)}

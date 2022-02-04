@@ -6,6 +6,8 @@ import {connect} from "react-redux";
 import {setUserProfile, getUserProfile} from '../../redux/profileReducer'
 import Profile from "./ProfileInfo/Profile";
 import {withRouter} from "react-router-dom";
+import LoaderComponent from "../common/LoaderComponent";
+import Redirect from "react-router-dom/es/Redirect";
 
 
 let mapStateToProps = (state) => ({
@@ -18,11 +20,14 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) userId = 22;
-
-       this.props.getUserProfile(userId);
+        if (this.props.profile)  return <LoaderComponent/>
+        if (!this.props.isLogged) return <Redirect to={'/login'}/>
+        this.props.getUserProfile(userId);
+        //console.log(this.props)
     }
     render() {
-        console.log(this.props.profile)
+
+        //console.log(this.props.profile)
         return (
             <Profile profile={this.props.profile}/> /*{...this.props}*/
         )
