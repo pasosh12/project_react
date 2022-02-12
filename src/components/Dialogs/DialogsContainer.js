@@ -3,6 +3,8 @@ import Dialogs from "./Dialogs";
 import {connect} from 'react-redux'
 import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/dialogsReducer";
 import StoreContext from "../../StoreContext";
+import Redirect from "react-router-dom/es/Redirect";
+import {withAuthRedirect} from "../HOC/WithAuthRedirect";
 
 
 /*const DialogsContainer = () => {
@@ -22,19 +24,14 @@ import StoreContext from "../../StoreContext";
     </StoreContext.Consumer>
 }*/
 
-let mapStateToProps = (state) => {
-    return {
-        state: state.dialogsPage,
-        isLogged:state.auth.isLogged,
-    }
-}
-
+//let AuthRedirectComponent=withAuthRedirect(Dialogs);
+let mapStateToProps = (state) => ({state: state.dialogsPage})
 let mapDispatchToProps = (dispatch) => {
     return {
         addMessage: () => dispatch(addMessageActionCreator()),
         updateNewMessage: (text) => dispatch(updateNewMessageActionCreator(text))
     }
 }
-const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs) //вокруг какой компоненты. подключаем компоненту dialogs к store
+const SuperDialogsContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs)) //вокруг какой компоненты. подключаем компоненту dialogs к store
 
 export default SuperDialogsContainer;

@@ -5,7 +5,7 @@ import Message from "./Message/Message";
 import Redirect from "react-router-dom/es/Redirect";
 
 const Dialogs = (props) => {
-    if (!props.isLogged) return <Redirect to={'/login'}/>
+
     let dialogsElement = props.state.dialogs.map( d => <DialogItem id={d.id} name={d.name} /> );
     let messageElement = props.state.messages.map( m => <Message id={m.id} message={m.message} /> );
     let newMessage=props.state.newMessageText;

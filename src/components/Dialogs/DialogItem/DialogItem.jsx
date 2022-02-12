@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from '../Dialog.module.css';
 import {NavLink} from "react-router-dom";
-import Redirect from "react-router-dom/es/Redirect";
+
 
 
 const DialogItem = (props) => {

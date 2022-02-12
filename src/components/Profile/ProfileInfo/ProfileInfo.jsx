@@ -12,7 +12,6 @@ let ProfileInfo = (props) => {
     let job = localProfile.lookingForAJob ? 'Да -> ' : 'Нет';
     let aboutMe = localProfile.aboutMe ? localProfile.aboutMe :  "Нет";
 
-    //console.log(localProfile)
     return (
         <div>
             <img src={headerPhoto}/>
