@@ -14,52 +14,48 @@ let initialState={
             {id: 2, message: 'Hello'},
             {id: 3, message: 'React Cool!'}
         ],
-        newMessageText:'',
+         // newMessageText:'',
 }
 
 const dialogsReducer=(state=initialState, action)=>{
 
     switch (action.type) {
         case ADD_MESSAGE: {
-
             let messagesCopy = {
-                ...state,
                 messages: [...state.messages]
             };
             
             let mas=Object.keys(messagesCopy.messages); // получение массива ключей
             let newId = mas.length; // получение длины массива ключей
-
             let newMessage = {
                 id: ++newId,
-                message: messagesCopy.newMessageText
+                message: action.newMessageText
             }
-
-            messagesCopy.newMessageText = '';
+            //messagesCopy.newMessageText = '';
             messagesCopy.messages.push(newMessage);
 
-            return messagesCopy;
-        }
-        case NEW_MESSAGE_CHANGE: {
-            return {
-                ...state,
-                newMessageText : action.message
+            return {...state,
+                messages:[...state.messages, {id:newMessage.id, message:newMessage.message} ]
             }
-
         }
+        // case NEW_MESSAGE_CHANGE: {
+        //     return {
+        //         ...state,
+        //         newMessageText : action.message
+        //     }
+        //
+        // }
         default:
             return state;
     }
 }
 
-export const addMessageActionCreator=()=>({type: ADD_MESSAGE})
-
-
-export const updateNewMessageActionCreator=(messageText)=>{
-    return {
-        type: NEW_MESSAGE_CHANGE,
-        message: messageText,
-    }
-}
+export const addMessageActionCreator=(newMessageText)=>({type: ADD_MESSAGE, newMessageText})
+// export const updateNewMessageActionCreator=(messageText)=>{
+//     return {
+//         type: NEW_MESSAGE_CHANGE,
+//         message: messageText,
+//     }
+// }
 
 export default dialogsReducer;

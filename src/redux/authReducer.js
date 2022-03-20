@@ -7,7 +7,7 @@ let initialState = {
     id: null,
     login: null,
     email: null,
-    isLogged: false
+    isLogged: true
 
 }
 
@@ -21,13 +21,7 @@ const authReducer = (state = initialState, action) => {
                 isLogged: true,
             }
         }
-        /* case NEW_MESSAGE_CHANGE: {
-             return {
-                 ...state,
-                 newMessageText : action.message
-             }
 
-         }*/
         default:
             return state;
     }
