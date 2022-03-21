@@ -1,19 +1,7 @@
 import React from 'react';
 import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {reduxForm, Field} from "redux-form";
-
-const MyPostFormRedux = (props) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <Field component={"textarea"} name={"newPostText"}
-                   placeholder={"Enter some Post text"} >
-            </Field>
-            <button>Add Post</button>
-        </form>
-    )
-}
-const AddNewPostFormRedux=reduxForm({form:"AddNewPostForm"})(MyPostFormRedux);
+import {AddNewPostFormRedux} from "./MyPostform";
 
 const MyPosts = (props) => {
 
@@ -21,15 +9,15 @@ const MyPosts = (props) => {
                                                     likesCount={p.likescount}/>);
     let onAddPost=(value)=>{
         props.addPost(value.newPostText);
+        // alert(value.newPostText);
     }
 
     return (
         <div className={classes.block}>
             <h2>My post</h2>
             <div className={classes.textarea}>
-                <AddNewPostFormRedux onSubmit={onAddPost}/>
+                <AddNewPostFormRedux onSubmit={onAddPost} />
             </div>
-
             <div className={classes.posts}>
                 {postsArray}
             </div>
@@ -38,6 +26,4 @@ const MyPosts = (props) => {
     );
 
 }
-
-
 export default MyPosts;
