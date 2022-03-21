@@ -9,15 +9,10 @@ const Dialogs = (props) => {
     let tempState=props.state;
     let dialogsElement = tempState.dialogs.map(d => <DialogItem id={d.id} name={d.name}/>);
     let messageElement = tempState.messages.map(m => <Message id={m.id} message={m.message}/>);
-    //let newMessage = props.state.newMessageText;
 
-    let handleSubmit = (event) => {
-        props.addMessage(event.newMessage);
+    let handleSubmit = (value) => {
+        props.addMessage(value.newMessage);
     }
-    // let messageChange = (e) => {
-    //     let text = e.target.value;
-    //     props.updateNewMessage(text);
-    // }
 
     return (
         <div className={classes.dialogs}>

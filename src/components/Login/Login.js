@@ -22,13 +22,12 @@ const LoginForm = (props) => {
     )
 
 }
-
-// export default
 const LoginFormRedux = reduxForm({form: 'loginForm'})(LoginForm);
 
 const LoginReduxForm = (props) => {
-    const onsubmit = (d) => {
-        console.log(d)
+    const onsubmit = (formData) => {
+        console.log(formData);
+
     }
     return (
         <div>
@@ -39,3 +38,4 @@ const LoginReduxForm = (props) => {
 
 }
 export default LoginReduxForm;
+

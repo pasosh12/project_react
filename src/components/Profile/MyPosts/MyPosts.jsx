@@ -3,22 +3,33 @@ import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {reduxForm, Field} from "redux-form";
 
+const MyPostFormRedux = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={"textarea"} name={"newPostText"}
+                   placeholder={"Enter some Post text"} >
+            </Field>
+            <button>Add Post</button>
+        </form>
+    )
+}
+const AddNewPostFormRedux=reduxForm({form:"AddNewPostForm"})(MyPostFormRedux);
 
 const MyPosts = (props) => {
 
     let postsArray = props.postsData.map(p => <Post key={p.id} message={p.message}
                                                     likesCount={p.likescount}/>);
-    let onAddPost = () => {
-        props.addPost();
-    }
-    let onPostChange = (e) => {
-        props.postChange(e.target.value);
+    let onAddPost=(value)=>{
+        props.addPost(value.newPostText);
     }
 
     return (
         <div className={classes.block}>
             <h2>My post</h2>
-            <MyPostsForm onPostChange={onPostChange} onAddPost={onAddPost}/>
+            <div className={classes.textarea}>
+                <AddNewPostFormRedux onSubmit={onAddPost}/>
+            </div>
+
             <div className={classes.posts}>
                 {postsArray}
             </div>
@@ -28,20 +39,5 @@ const MyPosts = (props) => {
 
 }
 
-const MyPostFormRedux = (props) => {
-    onsubmit = () => {
-
-    }
-    return (
-        <form onSubmit={onsubmit}>
-            <Field component={"textarea"} onChange={props.onPostChange} className={classes.textarea}
-                   placeholder={"Enter some Post text"} value={props.newPostText}>
-            </Field>
-            <button onClick={props.onAddPost}>Add Post</button>
-        </form>
-    )
-}
-
-const MyPostsForm=reduxForm({form:"postsForm"})(MyPostFormRedux);
 
 export default MyPosts;

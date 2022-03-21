@@ -13,7 +13,7 @@ let initialState = {
     ],
     newPostText: '',
     userInfo: '',
-    userStatus: '',
+    // userStatus: '',
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -22,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             }
             return {                //возвращает объект который был скопирован у state
@@ -49,14 +49,9 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
+export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText:newPostText})
 export const setUserStatus = (userStatus) => ({type: SET_USER_STATUS, userStatus})
 export const setUserProfile = (userInfo) => ({type: SET_USER_PROFILE, userInfo})
-
-export const updateNewPostActionCreator = (postText) => ({
-        type: NEW_POST_CHANGE,
-        postText: postText
-    })
 
 export const getUserProfile = (userId) => (dispatch) => {
     profileAPI.getProfile(userId).then(response => {

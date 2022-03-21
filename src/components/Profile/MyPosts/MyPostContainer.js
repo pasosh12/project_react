@@ -12,21 +12,17 @@ import {connect} from 'react-redux';
                     store.dispatch(addPostActionCreator());
                     /!*newPostElement.current.value="";*!/
                 }
-
                 let postChange = (text) => {
                     let action = updateNewPostActionCreator(text); //ctrl+alt+V
                     store.dispatch(action)
                 }
-
                 return <MyPosts postsData={store.getState().profilePage.postsData} addPost={addPost}
                                 newPostText={store.getState().profilePage.newPostText} postChange={postChange}/>
-
             }
         }
     </StoreContext.Consumer>
 }*/
 const mapStateToProps=(state)=>{
-    //console.log(state);
     return {
         postsData: state.profilePage.postsData,
         newPostText: state.profilePage.newPostText,
@@ -34,11 +30,8 @@ const mapStateToProps=(state)=>{
 }
 let mapDispatchToProps=(dispatch)=>{
     return {
-        postChange:(text)=>{
-            let action =  updateNewPostActionCreator(text); //ctrl+alt+V
-            dispatch(action)
-        },
-        addPost: ()=> dispatch(addPostActionCreator()),
+
+        addPost: (newPostText)=> dispatch(addPostActionCreator(newPostText)),
 
     }
 }
