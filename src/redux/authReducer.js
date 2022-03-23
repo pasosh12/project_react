@@ -7,7 +7,7 @@ let initialState = {
     id: null,
     login: null,
     email: null,
-    isLogged: true
+    isLogged: false
 
 }
 
@@ -18,8 +18,10 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data,
-                isLogged: true,
+                ...action.payload
+                // isLogged: action.data.isLogged,
             }
+                debugger;
         }
 
         default:
@@ -28,18 +30,34 @@ const authReducer = (state = initialState, action) => {
 }
 
 
-export const setLoggingProfile = (id, login, email) => {
+export const setAuthUserData = (id, login, email, isLogged) => {
     return {
         type: PROFILE_LOGGING,
-        data: {id, login, email}
+        payload: {id, login, email, isLogged}
     }
 }
 export const profileAuthorization = () => (dispatch) => {
-    authAPI.login().then(response => {
-        //debugger;
+    authAPI.me().then(response => {
         if (response.data.resultCode === 0) {
-            let data = response.data.data;
-            dispatch(setLoggingProfile(data.id, data.login, data.email));
+            let {id, email, login}= response.data.data;
+            dispatch(setAuthUserData(id,login, email,true));
+        }
+    })
+}
+export const profileLogin = (email, password) => (dispatch) => {
+    authAPI.profileLogin(email, password).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(profileAuthorization());
+        }
+        else if (response.data.resultCode === 1){
+            alert(response.data.messages[0]);
+        }
+    })
+}
+export const profileLogout=(email, password)=>(dispatch)=> {
+    authAPI.profileLogout().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false));
         }
     })
 }

@@ -8,6 +8,6 @@ export const  withAuthRedirect = (Component) => {
         return <Component {...props}/>
     }
     let mapStateToPropsRedirect = (state) => ({isLogged: state.auth.isLogged})
-    AuthRedirectComponent=connect(mapStateToPropsRedirect)(AuthRedirectComponent);
-    return AuthRedirectComponent;
+    let ConnectedAuthRedirectComponent=connect(mapStateToPropsRedirect)(AuthRedirectComponent);
+    return ConnectedAuthRedirectComponent;
 }

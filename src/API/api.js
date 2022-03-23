@@ -18,8 +18,14 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-    login(){
+    me(){
         return instance.get(`auth/me`)
+    },
+    profileLogin(email,password,rememberMe,captcha){
+        return instance.post(`/auth/login`, {email, password})
+    },
+    profileLogout(){
+        return instance.delete(`/auth/login`)
     }
 }
 

@@ -8,3 +8,7 @@ export const maxLength = (maxLength) => (value) => {
     if (value.length < maxLength) return undefined;
     else return `Max lenght is ${maxLength} symbols`;
 }
+export const valid=(value)=>{
+    if(value) return value;
+    else return '';
+}

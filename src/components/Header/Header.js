@@ -4,12 +4,13 @@ import React from "react";
 import vkLogo from "../../assets/images/vk-logo.svg";
 
 let Header=(props)=> {
-
+    const logout=()=>{
+        props.profileLogout();
+    }
     return <header className={c.header}>
         <img src={vkLogo} />
         <div className={c.authorization}>
-
-            {props.isLogged ? props.name : <NavLink to='/login'>Log in</NavLink>}
+            {props.isLogged ?  <div>{props.name}<br/><button onClick={logout}>Log out</button></div>: <NavLink to='/login'>Log in</NavLink>}
 
         </div>
     </header>
