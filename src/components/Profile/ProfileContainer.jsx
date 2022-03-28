@@ -21,7 +21,8 @@ class ProfileContainer extends React.Component {
         if (!this.props.profile) return <Preloader/>
         if (!this.props.isLogged) return <Redirect to={'/login'}/>
         return (
-            <Profile userStatus={this.props.userStatus} updateUserStatus={this.props.updateUserStatus} profile={this.props.profile}/> /*{...this.props}*/
+            <Profile userStatus={this.props.userStatus} updateUserStatus={this.props.updateUserStatus}
+                     profile={this.props.profile}/> /*{...this.props}*/
         )
     }
 

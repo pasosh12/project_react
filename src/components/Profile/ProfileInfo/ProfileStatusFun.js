@@ -1,41 +1,38 @@
 import React from "react";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
-const ProfileStatus=(props)=>{
-    const [ isEditing, setEditing ] = useState(false);
-    const [ statusText, setStatusText ] = useState(props.userStatus);
-    //
-    // let state = {
-    //     isEditing:false,
-    //     statusText:props.userStatus,
-    // }
+const ProfileStatus = (props) => {
+    let [isEditing, setEditing] = useState(false);
+    let [statusText, setStatusText] = useState(props.userStatus);
 
-    let editOn=()=>{
+    useEffect(() => {
+        setStatusText(props.userStatus)
+    },[props.userStatus]);
+
+    let editOn = () => {
         setEditing(true)
     }
-   let editOff = () => {
-       setEditing(false);
+    let editOff = () => {
+        setEditing(false);
         props.updateUserStatus(statusText)
     }
-    let onStatusChange = (e) => {
-        setStatusText( e.target.value);
+    const onStatusChange = (e) => {
+        setStatusText(e.target.value);
     }
 
-        console.log(statusText);
-
-        return(
-            <div>
-                {}
-                <i>Статус : </i>
-                {!isEditing ?
-                    <span onDoubleClick={editOn}>
-                        {statusText || "------"}
+    return (
+        <div>
+            {}
+            <i>Статус : </i>
+            {!isEditing ?
+                <span onDoubleClick={editOn}>
+                        {props.userStatus || "------"}
                      </span>
-                    : <input onChange={onStatusChange} autoFocus={true} onBlur={editOff}
-                             defaultValue={statusText}/>
-                }
-            </div>
-        )
+                : <input onChange={onStatusChange} autoFocus={true} onBlur={editOff}
+                         defaultValue={statusText}/>
+            }
+        </div>
+    )
 
 }
 
