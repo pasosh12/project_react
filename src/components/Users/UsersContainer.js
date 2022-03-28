@@ -1,12 +1,18 @@
 import React from 'react';
 import User from './User';
-import LoaderComponent from '../common/LoaderComponent';
+import Preloader from '../common/Preloader';
 import {connect} from 'react-redux';
 import {
     setCurrentPage, toggleFollowingProcess, getUsersThunk,
-    followUser, unfollowUser
+    followUser, unfollowUser, switchList
 } from '../../redux/userReducer';
-
+import {
+    getCurrentPage,
+    getFollowingInProgress, getIsFetchingStatus, getPagesCount,
+    getToggleFollowingProcess,
+    getUsers, getUsersOnPage, getUsersSelector,
+    getUsersTotalCount
+} from "../../redux/usersSelectors";
 
 
 class UsersApiContainer extends React.Component {
@@ -19,16 +25,19 @@ class UsersApiContainer extends React.Component {
         this.props.getUsersThunk(pageNumber, this.props.usersOnPage);
     }
 
+
+
     render() {
         let pages = [];
         let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.usersOnPage);
+
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i);
         }
 
         return (
             <>
-                {this.props.isFetching ? <LoaderComponent/> : null}
+                {this.props.isFetching ? <Preloader/> : null}
                 <User
                     pages={pages}
                     users={this.props.users}
@@ -48,15 +57,25 @@ class UsersApiContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.userData,
-        usersOnPage: state.usersPage.usersOnPage,
-        usersTotalCount: state.usersPage.usersTotalCount,
-        pagesCount: state.usersPage.pagesCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        toggleFollowingProcess: state.usersPage.toggleFollowingProcess,
+        users: getUsersSelector(state),
+        usersOnPage: getUsersOnPage(state),
+        usersTotalCount: getUsersTotalCount(state),
+        pagesCount: getPagesCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetchingStatus(state),
+        followingInProgress: getFollowingInProgress(state),
+        toggleFollowingProcess: getToggleFollowingProcess(state),
     }
+    // return {
+    //     users: state.usersPage.userData,
+    //     usersOnPage: state.usersPage.usersOnPage,
+    //     usersTotalCount: state.usersPage.usersTotalCount,
+    //     pagesCount: state.usersPage.pagesCount,
+    //     currentPage: state.usersPage.currentPage,
+    //     isFetching: state.usersPage.isFetching,
+    //     followingInProgress: state.usersPage.followingInProgress,
+    //     toggleFollowingProcess: state.usersPage.toggleFollowingProcess,
+    // }
 }
 /*let mapDispatchToProps = (dispatch) => {
     return {
@@ -73,5 +92,6 @@ const SuperUsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     toggleFollowingProcess,
     getUsersThunk,
+    switchList
 })(UsersApiContainer);
 export default SuperUsersContainer;

@@ -1,4 +1,5 @@
 import {authAPI} from "../API/api";
+import {stopSubmit} from "redux-form";
 
 const PROFILE_LOGGING = 'PROFILE_LOGGING';
 
@@ -21,9 +22,7 @@ const authReducer = (state = initialState, action) => {
                 ...action.payload
                 // isLogged: action.data.isLogged,
             }
-                debugger;
         }
-
         default:
             return state;
     }
@@ -37,7 +36,7 @@ export const setAuthUserData = (id, login, email, isLogged) => {
     }
 }
 export const profileAuthorization = () => (dispatch) => {
-    authAPI.me().then(response => {
+    return authAPI.me().then(response => {
         if (response.data.resultCode === 0) {
             let {id, email, login}= response.data.data;
             dispatch(setAuthUserData(id,login, email,true));
@@ -49,8 +48,9 @@ export const profileLogin = (email, password) => (dispatch) => {
         if (response.data.resultCode === 0) {
             dispatch(profileAuthorization());
         }
-        else if (response.data.resultCode === 1){
-            alert(response.data.messages[0]);
+        else {
+            let message=(response.data.messages[0]);
+            dispatch(stopSubmit('loginForm',{_error:message}));
         }
     })
 }

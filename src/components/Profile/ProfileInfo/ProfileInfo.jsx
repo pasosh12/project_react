@@ -1,13 +1,13 @@
 import React from "react";
 import classes from "./ProfileInfo.module.css";
-import LoaderComponent from '../../common/LoaderComponent';
+import Preloader from '../../common/Preloader';
 import defaultPhoto from "../../../assets/images/head.svg";
 import headerPhoto from "../../../assets/images/Polish_Wikinews_header_image.png"
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusFun from "./ProfileStatusFun";
 
 
 let ProfileInfo = (props) => {
-    if (!props.profile) { return <LoaderComponent/> }
+    if (!props.profile) { return <Preloader/> }
     let localProfile = props.profile;
     let contacts = props.profile.contacts;
     let job = localProfile.lookingForAJob ? 'Да -> ' : 'Нет';
@@ -23,7 +23,7 @@ let ProfileInfo = (props) => {
                         localProfile.photos.large : defaultPhoto}/>
                 </div>
                 <div>
-                   <ProfileStatus updateUserStatus={props.updateUserStatus} userStatus={props.userStatus}/>
+                   <ProfileStatusFun updateUserStatus={props.updateUserStatus} userStatus={props.userStatus}/>
                 </div>
                 <div><i>Ищу работу :</i> {job}
                     {localProfile.lookingForAJobDescription}

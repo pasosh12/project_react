@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 
 
 let User = (props) => {
+
     return (
         <div>
             <div>
@@ -16,6 +17,7 @@ let User = (props) => {
                                   }}> {p} </a>
                     })
                 }
+                <a onClick={props.listChanged}>...</a>
             </div>
 
             {/*<button onClick={this.addUsers}>Add Users</button>*/}

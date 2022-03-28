@@ -7,6 +7,7 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_USERS_COUNT = 'SET-USERS-COUNT';
 const SET_FETCH_STATUS = 'SET_FETCH_STATUS';
 const SET_FOLLOW_STATUS = 'SET_FOLLOW_STATUS';
+const SWITCHLIST = 'SWITCHLIST';
 
 let initialState = {
     userData: [],
@@ -61,6 +62,8 @@ const usersReducer = (state = initialState, action) => {
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
+        case SWITCHLIST:
+            return {...state, currentPage: action.currentPage}
         default:
             return state;
     }
@@ -75,6 +78,7 @@ export const setCurrentPage = (pageNumber) => ({type: SET_CURRENT_PAGE, currentP
 export const setUsersTotalCount = (count) => ({type: SET_USERS_COUNT, totalCount: count})
 export const setFetchingStatus = (fetchStatus) => ({type: SET_FETCH_STATUS, fetchStatus})
 export const toggleFollowingProcess = (isFetching, userId) => ({type: SET_FOLLOW_STATUS, isFetching, userId})
+export const switchList=(pageNumber)=>({type: 'SWITCHLIST', currentPage: pageNumber})
 
 export const getUsersThunk = (currentPage, usersOnPage) => {
     return (dispatch) => {
