@@ -3,6 +3,7 @@ import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {AddNewPostFormRedux} from "./MyPostform";
 
+
 const MyPosts = (props) => {
 
     let postsArray = props.postsData.map(p => <Post key={p.id} message={p.message}

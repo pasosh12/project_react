@@ -35,31 +35,27 @@ export const setAuthUserData = (id, login, email, isLogged) => {
         payload: {id, login, email, isLogged}
     }
 }
-export const profileAuthorization = () => (dispatch) => {
-    return authAPI.me().then(response => {
-        if (response.data.resultCode === 0) {
-            let {id, email, login}= response.data.data;
-            dispatch(setAuthUserData(id,login, email,true));
-        }
-    })
+export const profileAuthorization = () => async (dispatch) =>{
+    let response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+        let {id, email, login} = response.data.data;
+        dispatch(setAuthUserData(id, login, email, true));
+    }
 }
-export const profileLogin = (email, password) => (dispatch) => {
-    authAPI.profileLogin(email, password).then(response => {
+export const profileLogin = (email, password) => async (dispatch) => {
+   let response = await authAPI.profileLogin(email, password)
         if (response.data.resultCode === 0) {
             dispatch(profileAuthorization());
+        } else {
+            let message = (response.data.messages[0]);
+            dispatch(stopSubmit('loginForm', {_error: message}));
         }
-        else {
-            let message=(response.data.messages[0]);
-            dispatch(stopSubmit('loginForm',{_error:message}));
-        }
-    })
 }
-export const profileLogout=(email, password)=>(dispatch)=> {
-    authAPI.profileLogout().then(response => {
+export const profileLogout = (email, password) => async(dispatch) => {
+    let response = await authAPI.profileLogout()
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserData(null, null, null, false));
         }
-    })
 }
 
 export default authReducer;

@@ -4,7 +4,8 @@ import { createSelector } from 'reselect';
     return state.usersPage.userData
 }
 export const getUsersSelector=createSelector(getUsers,(users)=>{
-    return users.filter(u=>u.name.length>10);
+    return users
+    // users.filter(u=>u.name.length>10);
 })
 export const getUsersOnPage=(state)=>{
      return state.usersPage.usersOnPage

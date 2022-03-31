@@ -2,7 +2,7 @@ import {Field, reduxForm} from "redux-form";
 import React from "react";
 import {maxLength, required} from "../../../utils/validators";
 import {Textarea} from "../../common/FormsControl";
-import handleSubmit from "redux-form/lib/handleSubmit";
+
 
 const maxLength30=maxLength(30);
 const MyPostFormRedux = (props) => {

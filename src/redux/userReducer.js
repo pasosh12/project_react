@@ -78,38 +78,35 @@ export const setCurrentPage = (pageNumber) => ({type: SET_CURRENT_PAGE, currentP
 export const setUsersTotalCount = (count) => ({type: SET_USERS_COUNT, totalCount: count})
 export const setFetchingStatus = (fetchStatus) => ({type: SET_FETCH_STATUS, fetchStatus})
 export const toggleFollowingProcess = (isFetching, userId) => ({type: SET_FOLLOW_STATUS, isFetching, userId})
-export const switchList=(pageNumber)=>({type: 'SWITCHLIST', currentPage: pageNumber})
+export const switchList = (pageNumber) => ({type: 'SWITCHLIST', currentPage: pageNumber})
 
 export const getUsersThunk = (currentPage, usersOnPage) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setFetchingStatus(true));
-        usersAPI.getUsers(currentPage, usersOnPage).then(response => {
-            dispatch(setUsers(response.data.items));
-            dispatch(setFetchingStatus(false));
-            dispatch(setUsersTotalCount(response.data.totalCount));
-        })
+        let response = await usersAPI.getUsers(currentPage, usersOnPage)
+        dispatch(setUsers(response.data.items));
+        dispatch(setFetchingStatus(false));
+        dispatch(setUsersTotalCount(response.data.totalCount));
+    }
+}
+const followUnfollowToggle=(action, apiMethod, userId)=> {
+      return async (dispatch) => {
+        dispatch(toggleFollowingProcess(true, userId));
+        let response = await apiMethod;
+        if (response.data.resultCode === 0) {
+            dispatch(toggleFollowingProcess(false, userId));
+            dispatch(action);
+        }
     }
 }
 export const followUser = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleFollowingProcess(true, userId));
-        followAPI.followUser(userId).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(toggleFollowingProcess(false, userId));
-                dispatch(follow(userId));
-            }
-        })
-    }
+    let action = follow(userId);
+    let apiMethod = followAPI.followUser(userId);
+    return followUnfollowToggle(action, apiMethod, userId)
 }
 export const unfollowUser = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleFollowingProcess(true, userId));
-        followAPI.unfollowUser(userId).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(toggleFollowingProcess(false, userId));
-                dispatch(unfollow(userId));
-            }
-        })
-    }
+    let action = unfollow(userId);
+    let apiMethod = followAPI.unfollowUser(userId);
+    return followUnfollowToggle(action, apiMethod, userId)
 }
 export default usersReducer;

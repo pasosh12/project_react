@@ -1,5 +1,5 @@
 import React from 'react';
-import User from './User';
+import Users from './Users';
 import Preloader from '../common/Preloader';
 import {connect} from 'react-redux';
 import {
@@ -10,7 +10,7 @@ import {
     getCurrentPage,
     getFollowingInProgress, getIsFetchingStatus, getPagesCount,
     getToggleFollowingProcess,
-    getUsers, getUsersOnPage, getUsersSelector,
+     getUsersOnPage, getUsersSelector,
     getUsersTotalCount
 } from "../../redux/usersSelectors";
 
@@ -30,7 +30,7 @@ class UsersApiContainer extends React.Component {
     render() {
         let pages = [];
         let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.usersOnPage);
-
+// debugger;
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i);
         }
@@ -38,7 +38,7 @@ class UsersApiContainer extends React.Component {
         return (
             <>
                 {this.props.isFetching ? <Preloader/> : null}
-                <User
+                <Users
                     pages={pages}
                     users={this.props.users}
                     currentPage={this.props.currentPage}

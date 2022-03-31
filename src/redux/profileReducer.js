@@ -48,23 +48,20 @@ export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostTe
 export const setUserStatus = (userStatus) => ({type: SET_USER_STATUS, userStatus})
 export const setUserProfile = (userInfo) => ({type: SET_USER_PROFILE, userInfo})
 
-export const getUserProfile = (userId) => (dispatch) => {
-    profileAPI.getProfile(userId).then(response => {
+export const getUserProfile = (userId) => async (dispatch) => {
+    let response= await profileAPI.getProfile(userId)
         dispatch(setUserProfile(response.data));
-    })
 }
-export const getUserStatus = (userId) => (dispatch) => {
-    profileAPI.getUserStatus(userId).then(response => {
+export const getUserStatus = (userId) => async (dispatch) => {
+    let response = await profileAPI.getUserStatus(userId)
         console.log(response);
         dispatch(setUserStatus(response.data));
-    })
 }
-export const updateUserStatus = (userStatus) => (dispatch) => {
-    profileAPI.updateUserStatus(userStatus).then(response => {
+export const updateUserStatus = (userStatus) => async (dispatch) => {
+    let response = await profileAPI.updateUserStatus(userStatus)
         if (response.data.resultCode === 0) {
             dispatch(setUserStatus(userStatus));
         }
-    })
 }
 
 

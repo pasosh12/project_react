@@ -4,7 +4,7 @@ import * as axios from "axios";
 import defaultPhoto from "./../../assets/images/head.svg"
 
 
-let Users = (props) => {
+let UsersOld = (props) => {
 
     let addUsers = () => {
                 props.setUsers([
@@ -72,4 +72,4 @@ let Users = (props) => {
 }
 
 
-export default Users;
+export default UsersOld;
