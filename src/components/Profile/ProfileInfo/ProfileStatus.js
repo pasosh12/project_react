@@ -31,8 +31,6 @@ class ProfileStatus extends React.Component{
         }
     }
     render() {
-        console.log(this.state.statusText);
-
         return(
             <div>
                 {}

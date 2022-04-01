@@ -7,10 +7,10 @@ import User from "./User";
 
 
 let Users = (props) => {
-    console.log(props)
     return (
         <div>
-            <Paginator {...props}/>
+            <Paginator currentPage={props.currentPage} pageChanged={props.pageChanged}
+                       usersTotalCount={props.usersTotalCount} usersOnPage={props.usersOnPage}/>
 
             {/*<button onClick={this.addUsers}>Add UsersOld</button>*/}
             {

@@ -25,8 +25,7 @@ export const Textarea = (props) => {
 
 }
 export const CreateField = (component, name = '', placeholder = '', validate = [], props = {}) => {
-    console.log(props);
-    return (
+return (
         <div>
             <Field component={component} name={name} placeholder={placeholder} validate={validate} {...props} />
         </div>

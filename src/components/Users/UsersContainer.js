@@ -28,18 +28,12 @@ class UsersApiContainer extends React.Component {
 
 
     render() {
-        let pages = [];
-        let pagesCount = Math.ceil(this.props.usersTotalCount / this.props.usersOnPage);
-// debugger;
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i);
-        }
-
         return (
             <>
                 {this.props.isFetching ? <Preloader/> : null}
                 <Users
-                    pages={pages}
+                    pagesCount={this.props.pagesCount}
+                    usersOnPage={this.props.usersOnPage}
                     users={this.props.users}
                     currentPage={this.props.currentPage}
                     pageChanged={this.pageChanged}
@@ -48,6 +42,7 @@ class UsersApiContainer extends React.Component {
                     isFetching={this.props.isFetching}
                     followingInProgress={this.props.followingInProgress}
                     toggleFollowingProcess={this.props.toggleFollowingProcess}
+                    usersTotalCount={this.props.usersTotalCount}
                 />
             </>
         );
