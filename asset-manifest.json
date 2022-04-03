@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/project_react/static/css/main.4736a3f3.css",
-    "main.js": "/project_react/static/js/main.1c431bd8.js",
+    "main.css": "/project_react/static/css/main.c6e563da.css",
+    "main.js": "/project_react/static/js/main.2b1d002d.js",
     "static/css/174.0b568485.chunk.css": "/project_react/static/css/174.0b568485.chunk.css",
     "static/js/174.23427f2c.chunk.js": "/project_react/static/js/174.23427f2c.chunk.js",
     "static/media/Polish_Wikinews_header_image.png": "/project_react/static/media/Polish_Wikinews_header_image.9d9bd40d7bcbf2302dfd.png",
@@ -9,13 +9,13 @@
     "static/media/vk-logo.svg": "/project_react/static/media/vk-logo.744fb1d3879f1cfd3947fa0fbaa54aa7.svg",
     "static/media/preloader.svg": "/project_react/static/media/preloader.3b7c6658d383cbb640c07873cfa14bc9.svg",
     "index.html": "/project_react/index.html",
-    "main.4736a3f3.css.map": "/project_react/static/css/main.4736a3f3.css.map",
-    "main.1c431bd8.js.map": "/project_react/static/js/main.1c431bd8.js.map",
+    "main.c6e563da.css.map": "/project_react/static/css/main.c6e563da.css.map",
+    "main.2b1d002d.js.map": "/project_react/static/js/main.2b1d002d.js.map",
     "174.0b568485.chunk.css.map": "/project_react/static/css/174.0b568485.chunk.css.map",
     "174.23427f2c.chunk.js.map": "/project_react/static/js/174.23427f2c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4736a3f3.css",
-    "static/js/main.1c431bd8.js"
+    "static/css/main.c6e563da.css",
+    "static/js/main.2b1d002d.js"
   ]
 }
